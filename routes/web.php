@@ -1,9 +1,8 @@
 <?php
 
 use App\Models\Post;
-use Illuminate\Support\Facades\File;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +16,15 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
-    return view('posts', ['posts'=>Post::All()]);
+    return view('posts', ['posts'=>Post::with('category')->get()]);
 });
 
-Route::get('post/{post}', function($id){
-
+Route::get('post/{post}', function(Post $post){//MODEL BINDING, the ORM lookup the model by de id
     return view ('post',[
-        'post'=>Post::findOrFail($id)
+        'post'=>$post
     ]);
+});
+
+Route::get('categories/{category:slug}', function (Category $category){
+    return view('posts',  ['posts'=> $category->posts]);
 });
