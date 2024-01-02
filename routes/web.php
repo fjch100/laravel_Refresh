@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('posts', ['posts'=>Post::latest()->get()]);
 });
 
-Route::get('post/{post}', function(Post $post){//MODEL BINDING, the ORM lookup the model by de id
+Route::get('post/{post:slug}', function(Post $post){//MODEL BINDING, the ORM lookup the model by de id
     return view ('post',[
         'post'=>$post
     ]);
