@@ -23,9 +23,9 @@ class PostFactory extends Factory
             'user_id'=>\App\Models\User::Factory(),
             'category_id'=> \App\Models\Category::Factory(),
             'title' => fake()->sentence(),
-            'slug'=> fake()->slug(3),
-            'excerpt' => fake()->sentence(),
-            'body' => fake()->paragraph(),
+            'slug'=> fake()->sentence(),
+            'excerpt' => fake()->text(),
+            'body' => fake()->text(400),
 
         ];
     }
