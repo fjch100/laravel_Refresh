@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index(){
         // dd(request(['search'])); // ['search' => 'term to search']
         return view('posts', [
-            'posts'=> Post::latest()->filter(request(['search']))->get(), 
+            'posts'=> Post::latest()->filter(request(['search', 'category']))->get(), 
             'categories'=>Category::all()
         ]);
     }
