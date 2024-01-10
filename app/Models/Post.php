@@ -16,7 +16,8 @@ class Post extends Model
     //if you don't need it use Post::without('author', 'category)->first() in the query
     protected $with = ['category', 'author'];
 
-    public function scopeFilter($query, array $filters){//Post::newQuery()->filter()
+    public function scopeFilter($query, array $filters){  //Post::newQuery()->filter()
+        
         $query->when($filters['search'] ?? false, function ($query, $search){
             $query
             ->where('title', 'like', '%' . $search . '%')
@@ -25,8 +26,11 @@ class Post extends Model
 
         $query->when($filters['category'] ?? false, function ($query, $category){
             $query->whereHas('category', fn($query) =>
-                $query->where('slug', $category)
-        );
+                $query->where('slug', $category));
+        });
+
+        $query->when($filters['author'] ?? false, function ($query, $author){
+            $query->whereHas('author', fn($query) => $query->where('username', $author));
             
         });
 

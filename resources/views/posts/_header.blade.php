@@ -11,25 +11,8 @@
             
             <div class="relative lg:inline-flex bg-gray-100 rounded-xl">
             <!--  Category -->
-                <x-dropdown>
-                    <x-slot name="trigger">
-                        <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-32 text-left flex lg:inline-flex">
-                            <!-- SI estamos dentro de una categoria muestrala  -->
-                            {{isset($currentCategory)? ucwords($currentCategory->name) : 'Category'}}
-                            <x-icon name="down-arrow" class="absolute pointer-events-none" style="right: 12px;" ></x-icon>
-                        </button>
-                    </x-slot>
-
-                    <x-dropdown-item  href="/" :active="request()->routeIs('home')">All</x-dropdown-item>    
-                    @foreach ($categories as $cat)
-                        <x-dropdown-item 
-                            href="/categories/{{$cat->slug}}"
-                            :active="(isset($currentCategory) && $currentCategory->id == $cat->id)"
-                            >
-                            {{ucwords($cat->name)}}
-                        </x-dropdown-item>
-                    @endforeach
-                </x-dropdown>
+                <x-category-dropdown />
+                
                                 
             </div>
 
@@ -57,7 +40,10 @@
 
             <!-- Search -->
             <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-                <form method="GET" action="#">
+                <form method="GET" action="/">
+                    @if (request('category'))
+                        <input type="hidden" name="category" value="{{request('category')}}">
+                    @endif
                     <input 
                         type="text" 
                         name="search" 
