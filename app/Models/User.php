@@ -35,6 +35,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // EJEMPLO DE MUTATOR:
+    // public function setPasswordAttribute($password){
+    //     $this->password = bcrypt($password);
+    // }
+
+
     /**
      * The attributes that should be cast.
      *
