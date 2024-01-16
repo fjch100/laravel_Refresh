@@ -18,7 +18,11 @@
                             type="text" 
                             name="name" 
                             id="name" 
-                            required>                        
+                            value="{{old('name')}}"
+                            required>  
+                            @error('name')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror                       
                     </div>
                     <div class="mb-6">
                         <label 
@@ -32,7 +36,11 @@
                             type="text" 
                             name="username" 
                             id="username" 
-                            required>                        
+                            value="{{old('username')}}"
+                            required>   
+                            @error('username')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror                      
                     </div>
                     <div class="mb-6">
                         <label 
@@ -46,7 +54,11 @@
                             type="email" 
                             name="email" 
                             id="email" 
-                            required>                        
+                            value="{{old('email')}}"
+                            required>   
+                            @error('email')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror                     
                     </div>
 
                     <div class="mb-6">
@@ -61,7 +73,10 @@
                             type="password" 
                             name="password" 
                             id="password" 
-                            required>                        
+                            required>     
+                            @error('password')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror                       
                     </div>
                     <div class="mb-6">
                         <button 
@@ -69,7 +84,14 @@
                             class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
                             Submit
                         </button>
-                    </div>    
+                    </div> 
+                    @if ($errors->any())
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500 text-xs">{{$error}}</li>                            
+                            @endforeach   
+                        </ul>
+                    @endif                    
             </form>
         </main>
     </section>
