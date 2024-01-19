@@ -22,16 +22,14 @@ class SessionController extends Controller
             'password' => 'required',
         ]);
         
-        if(auth()->attempt($attributes)){
-            session()->regenerate();  //crea una nueva sesion y guarda el id
-            var_dump(auth()->user()->name);
-            return redirect('/')->with('success', "Welcome back " . auth()->user()->name);
-
-        }
-        
-        return back()
+        if(!auth()->attempt($attributes)){
+            return back()
                 ->withInput()
                 ->withErrors(['email'=>'Email or password incorrect']);
-        
+        }     
+
+        session()->regenerate();  //crea una nueva sesion y guarda el id
+        var_dump(auth()->user()->name);
+        return redirect('/')->with('success', "Welcome back " . auth()->user()->name);
     }
 }
