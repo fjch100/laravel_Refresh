@@ -1,0 +1,68 @@
+You can use kebab-case and plural in the URI pattern, but camelCase and singular for Controller name, as that is what Laravel will look for if trying to do route–model binding.
+
+You can use it for resouce routes, but note, for this route
+
+Route::resource('item-details', 'ItemDetailController');
+the route parameter will result in snake_case and singular
+
+/item-details/{item_detail}
+For the controller methods the conventional names are index, show, create, store, edit, update and delete. And snakeCase for custom methods.
+
+Also you can add a route group to prefix with some uri like /system-items
+
+Route::group(['prefix'  =>  'system-items'], function () {
+    Route::resource('item-details', 'ItemDetailController');
+});
+run php artisan route:list to see the result
+
++--------+-----------+-----------------------------------------------------+-------------------------+---------------------------------------------------------------------------+--------------+
+| Domain | Method    | URI                                                 | Name                    | Action                                                                    | Middleware   |
++--------+-----------+-----------------------------------------------------+-------------------------
+|        | GET|HEAD  | api/v1/system-items/item-details                    | item-details.index      | App\Http\Controllers\Api\v1\ItemDetailController@index                         | api          |
+|        | POST      | api/v1/system-items/item-details                    | item-details.store      | App\Http\Controllers\Api\v1\ItemDetailController@store                         | api          |
+|        | GET|HEAD  | api/v1/system-items/item-details/create             | item-details.create     | App\Http\Controllers\Api\v1\ItemDetailController@create                        | api          |
+|        | GET|HEAD  | api/v1/system-items/item-details/{item_detail}      | item-details.show       | App\Http\Controllers\Api\v1\ItemDetailController@show                          | api          |
+|        | PUT|PATCH | api/v1/system-items/item-details/{item_detail}      | item-details.update     | App\Http\Controllers\Api\v1\ItemDetailController@update                        | api          |
+|        | DELETE    | api/v1/system-items/item-details/{item_detail}      | item-details.destroy    | App\Http\Controllers\Api\v1\ItemDetailController@destroy                       | api          |
+|        | GET|HEAD  | api/v1/system-items/item-details/{item_detail}/edit | item-details.edit       | App\Http\Controllers\Api\v1\ItemDetailController@edit  
+Of course, all of these are conventions and you can customize everything by doing it by hand and using your own conventions.
+
+
+
+class EjemploController extends Controller
+{
+    public function index()
+    {
+        // Código para la página principal
+    }
+
+    public function show($id)
+    {
+        // Código para mostrar un recurso específico
+    }
+
+    public function create()
+    {
+        // Código para mostrar el formulario de creación
+    }
+
+    public function store(Request $request)
+    {
+        // Código para almacenar un nuevo recurso en la base de datos
+    }
+
+    public function edit($id)
+    {
+        // Código para mostrar el formulario de edición
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Código para actualizar un recurso en la base de datos
+    }
+
+    public function destroy($id)
+    {
+        // Código para eliminar un recurso de la base de datos
+    }
+}

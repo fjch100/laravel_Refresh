@@ -8,6 +8,9 @@ use App\Models\Category;
 
 class PostController extends Controller
 {
+// stick to functions:  index, show, create, store, edit, update and destroy. 
+
+    //index function is used to retrieve all the data from database table 'posts' and display
     //********** function index() ******* */
     public function index(){
         // dd(request(['search'])); // ['search' => 'term to search']
@@ -17,6 +20,7 @@ class PostController extends Controller
         ]);
     }
 
+    
     //************* function show(Post $post) ***** */
     public function show(Post $post){//MODEL BINDING, the ORM lookup the model by de id
         return view ('posts.show',[
